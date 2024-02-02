@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { connect } from "react-redux";
 import { useSelector, useDispatch } from "react-redux";
 import { editUser } from "../../actions";
 
@@ -297,7 +296,7 @@ const Edit = ({ showModal, handleClose, index }, props) => {
     }
 
     updateTable();
-    // alert("Data is Changed ✅👌");
+    handleClose();
   };
 
   return (

@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useForm } from "react-hook-form";
 import addUser from "../actions";
-import { Filtering } from "./Table";
 
 const Form = (props) => {
-  console.log(props);
+  // console.log(props);
 
   const {
     register,
@@ -14,30 +13,14 @@ const Form = (props) => {
     reset,
   } = useForm();
 
-  useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem("userData"));
-    setUserList(storedData || []);
-  }, []);
+ 
   const [languages, setLanguages] = useState([""]);
-  const [userList, setUserList] = useState([]);
   const [isSubmitClicked, setIsSubmitClicked] = useState(false);
 
   const onSubmit = (data) => {
     setIsSubmitClicked(true);
     const newData = { ...data, languages: languages };
-    setUserList((previous) => [
-      ...previous,
-      {
-        firstName: newData.firstName,
-        lastName: newData.lastName,
-        email: newData.email,
-        phone: newData.phone,
-        gender: newData.gender,
-        country: newData.country,
-        hobbies: newData.hobbies,
-        language: newData.languages,
-      },
-    ]);
+    
 
     if (!data.hobbies || !data.hobbies.length) {
       alert("Please select at least one hobby");

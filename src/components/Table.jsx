@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import addUser from "../actions";
 import ButtonComponent from "./ButtonComponent";
 import styled from "styled-components";
 import DataTable from "react-data-table-component";
