@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Filtering from "./components/Table";
 
 const App = () => {
+  
   return (
     <div className="App">
       <Form />

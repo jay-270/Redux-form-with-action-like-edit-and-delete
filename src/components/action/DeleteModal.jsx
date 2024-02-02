@@ -9,25 +9,32 @@ const DeleteModal = ({
   index,
   getData,
 }) => {
+
   const dispatch = useDispatch();
+  
   const data = useSelector((state) => state);
-  console.log(data);
+  
   const [serial, setSerial] = useState();
+  
   useEffect(() => {
     setSerial(index);
   }, [index]);
 
   const deleteRow = () => {
+  
     // const str = localStorage.getItem("userData");
     const existingData = data;
-    console.log(existingData);
+  
+  
     existingData.splice(serial, 1);
+  
     dispatch(editUser(existingData));
-    // localStorage.setItem("userData", JSON.stringify(data));
     // alert("Data is deleted!!!⚠️💀")
+    // localStorage.setItem("userData", JSON.stringify(data));
   };
 
   const clickHandler = () => {
+    
     deleteRow();
     // notify();
     handleCloseDelete();

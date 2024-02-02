@@ -12,7 +12,9 @@ const tableCustomStyles = {
       justifyContent: "center",
     },
   },
+
   Header: "Action",
+
   columns: [
     {
       accessor: "Action",
@@ -52,11 +54,15 @@ const FilterComponent = ({ filterText, onFilter, onClear }) => (
 
 export const Filtering = (props) => {
   const userList = Object.values(props);
-  const [data, setData] = useState([]);
-  useEffect(() => {
-  setData(userList)
-  }, [props]);
 
+  const [data, setData] = useState([]);
+
+  useEffect(()=>{
+    // console.log("This is use Effect",data[0].user)
+  }, [data])
+  useEffect(() => {
+    setData(userList);
+  }, [props]);
 
   const [filterText, setFilterText] = React.useState("");
 
@@ -101,7 +107,7 @@ export const Filtering = (props) => {
     },
     {
       name: "Languages",
-      selector: (row) => row.user.languages.join(', '),
+      selector: (row) => row.user.languages.join(", "),
       sortable: true,
     },
 
@@ -142,7 +148,7 @@ export const Filtering = (props) => {
     <DataTable
       title="Data List"
       columns={columns}
-      data={data} 
+      data={data}
       pagination
       paginationResetDefaultPage={resetPaginationToggle} // optionally, a hook to reset pagination to page 1
       subHeader
@@ -157,8 +163,6 @@ export const Filtering = (props) => {
 const mapStateToProps = (state) => ({
   ...state,
 });
-const mapDispatchToProps = (dispatch) => ({
- 
-});
+const mapDispatchToProps = (dispatch) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filtering);

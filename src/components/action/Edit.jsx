@@ -7,7 +7,9 @@ import { editUser } from "../../actions";
 const Edit = ({ showModal, handleClose, index }, props) => {
   // const [users, setUsers] = useState([]);
   const dispatch = useDispatch();
+
   const data = useSelector((state) => state);
+
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -40,13 +42,16 @@ const Edit = ({ showModal, handleClose, index }, props) => {
   useEffect(() => {
     let existingData = data;
     const userData = existingData[index];
+
     if (userData) {
       setUser(userData);
+
       const languagesList =
         userData.user.languages &&
         userData.user.languages.map((language) => ({
           language,
         }));
+
       setInputFields(languagesList);
     }
   }, [index]);
@@ -61,6 +66,7 @@ const Edit = ({ showModal, handleClose, index }, props) => {
 
   const forValidation = () => {
     let isValid = true;
+
     setErrors({
       firstName: "",
       lastName: "",
@@ -157,13 +163,15 @@ const Edit = ({ showModal, handleClose, index }, props) => {
 
   const handleFieldChange = (index, e) => {
     let formValues = [...inputFields];
-    console.log("formValues: ", formValues);
+
     formValues[index].language = e.target.value;
-    setInputFields(formValues);
-    console.log("Form values", formValues);
+    let languageArray = formValues.map((obj)=>obj.language);
+    console.log("Languages in array :", languageArray)
     setUser((previous) => ({
-      ...previous,
-      languages: [...formValues],
+      user: {
+        ...previous.user,
+        languages: languageArray,
+      },
     }));
   };
 
@@ -171,7 +179,17 @@ const Edit = ({ showModal, handleClose, index }, props) => {
     let newFormValues = [...inputFields];
 
     newFormValues.splice(i.target.id, 1);
+
     setInputFields(newFormValues);
+    
+    let languageArray = newFormValues.map((obj)=>obj.language);
+    console.log("Languages in array :", languageArray)
+    setUser((previous) => ({
+      user: {
+        ...previous.user,
+        languages: languageArray,
+      },
+    }));
   };
 
   const addFields = (e) => {
@@ -183,7 +201,6 @@ const Edit = ({ showModal, handleClose, index }, props) => {
         ...previous,
         languages: "",
       }));
-
       setInputFields([...inputFields, { language: { language: "" } }]);
     } else {
       setErrors((previous) => ({
@@ -209,11 +226,12 @@ const Edit = ({ showModal, handleClose, index }, props) => {
               id={`${index}`}
               name="language"
               // value={inputFields[index].language.language}
-              value={value.language}
+              value={typeof(value.language)?value.language:""}
               placeholder="Enter your programming languages...."
               onChange={(e) => handleFieldChange(index, e)}
             />
           </div>
+
           <div className="col">
             {index === 0 ? (
               <i
@@ -239,8 +257,8 @@ const Edit = ({ showModal, handleClose, index }, props) => {
   const updateTable = () => {
     // setUsers(JSON.parse(localStorage.getItem("userData")));
     let existingData = data;
-    console.log("This is users in update tabel", user);
     existingData[index] = user;
+    console.log(user);
     dispatch(editUser(existingData));
     verified();
     // getData(existingData);
@@ -281,6 +299,7 @@ const Edit = ({ showModal, handleClose, index }, props) => {
 
   const handleChange = (e) => {
     const { id, value } = e.target;
+
     setUser((prevUser) => ({
       user: {
         ...prevUser.user,
@@ -311,7 +330,10 @@ const Edit = ({ showModal, handleClose, index }, props) => {
           aria-hidden={!showModal}
           style={{ display: showModal ? "block" : "none" }}
         >
-          <div className="modal-dialog modal-dialog-centered" role="document">
+          <div
+            className="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+            role="document"
+          >
             <div className="modal-content">
               <div className="modal-header">
                 <h2 className="modal-title">Change User Detail</h2>

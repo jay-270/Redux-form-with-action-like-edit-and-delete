@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import addUser from "../actions";
 
 const Form = (props) => {
-  // console.log(props);
 
   const {
     register,
@@ -13,14 +12,14 @@ const Form = (props) => {
     reset,
   } = useForm();
 
- 
   const [languages, setLanguages] = useState([""]);
+
   const [isSubmitClicked, setIsSubmitClicked] = useState(false);
 
   const onSubmit = (data) => {
     setIsSubmitClicked(true);
+
     const newData = { ...data, languages: languages };
-    
 
     if (!data.hobbies || !data.hobbies.length) {
       alert("Please select at least one hobby");
@@ -32,7 +31,7 @@ const Form = (props) => {
       return;
     }
 
-    alert(JSON.stringify(newData));
+    // alert(JSON.stringify(newData));
 
     props.addUser(newData);
     reset();
@@ -40,20 +39,29 @@ const Form = (props) => {
   };
 
   const handleLanguageChange = (index, e) => {
+  
     const updatedLanguages = [...languages];
+
     updatedLanguages[index] = e.target.value;
+
     setLanguages(updatedLanguages);
   };
 
   const addLanguageField = () => {
+  
     const lastLanguage = languages[languages.length - 1];
+
     if (lastLanguage !== "") {
       setLanguages([...languages, ""]);
     }
   };
+
   const removeLanguageField = (index) => {
+  
     const updatedLanguages = [...languages];
+
     updatedLanguages.splice(index, 1);
+
     setLanguages(updatedLanguages);
   };
 
@@ -246,7 +254,6 @@ const Form = (props) => {
                         // {...register("languages")}
                         className={`form-control ${
                           errors.languages &&
-                          isSubmitClicked &&
                           index === languages.length - 1
                             ? "border border-danger"
                             : ""
@@ -273,7 +280,7 @@ const Form = (props) => {
                             Remove
                           </button>
                         )}
-                      </div>
+                        </div>
                     </div>
                   ))}
                   {errors.languages && isSubmitClicked && (
@@ -314,6 +321,7 @@ const Form = (props) => {
 const mapStateToProps = (state) => ({
   ...state,
 });
+
 const mapDispatchToProps = (dispatch) => ({
   addUser: (user) => dispatch(addUser(user)),
 });
