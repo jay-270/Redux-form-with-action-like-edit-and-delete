@@ -41,14 +41,14 @@ const TextField = styled.input`
 
 const FilterComponent = ({ filterText, onFilter, onClear }) => (
   <>
-    <TextField
+    {/* <TextField
       id="search"
       type="text"
       placeholder="Filter By Name"
       aria-label="Search Input"
       value={filterText}
       onChange={onFilter}
-    />
+    /> */}
   </>
 );
 
